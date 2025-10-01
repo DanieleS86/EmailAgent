@@ -40,19 +40,24 @@ An intelligent email agent for businesses, built with Blazor Server, MudBlazor, 
 
 ### Installation
 
-```bash
+bash
+````
 git clone https://github.com/your-username/EmailAgentSWB.git
 cd EmailAgentSWB
 Database Connection
+````
 Edit appsettings.json:
-
+````
 json
 "ConnectionStrings": {
   "DefaultConnection": "Server=xxx.xxx.xxx.xxx;User=username;Password=***;Database=database;Port=3306;CharSet=utf8;"
 }
+````
 Scaffold DbContext
 powershell
+````
 Scaffold-DbContext "Server=...;Database=..." Pomelo.EntityFrameworkCore.MySql -OutputDir Data -Context AppDbContext -Force
+````
 
 🤖 AI Service: ModelAIService
 The generic ModelAIService supports:
@@ -69,6 +74,7 @@ var reply = await modelAIService.GeneriereAntwort(email.Body);
 
 📨 Email Reading with MailKit
 csharp
+````
 using MailKit.Net.Imap;
 using MailKit.Security;
 using MimeKit;
@@ -81,6 +87,7 @@ public void ReadEmails() {
     inbox.Open(FolderAccess.ReadOnly);
     var message = inbox.GetMessage(0);
 }
+````
 🖼 UI with MudBlazor
 The EmailAgent.razor page includes:
 
@@ -91,11 +98,9 @@ A textbox with the AI-generated reply
 Buttons for “Send Reply”, “Edit”, “Archive”
 
 📄 License
+````
 MIT License
-```
-
-
-
+````
 📂 Importing a Database as DbContext in Blazor
 To generate the Entity Framework Core DbContext and models from an existing MySQL database, follow these steps:
 
@@ -103,23 +108,28 @@ To generate the Entity Framework Core DbContext and models from an existing MySQ
 Edit your appsettings.json and add a connection string (replace with your own values):
 
 json
+````
 "ConnectionStrings": {
   "DefaultConnection": "Server=YOUR_SERVER;User=YOUR_USER;Password=YOUR_PASSWORD;Database=YOUR_DATABASE;Port=3306;CharSet=utf8;"
 }
+````
 ⚠️ Important: Never commit real passwords or production credentials to GitHub. Use placeholders in appsettings.json and store secrets with User Secrets or environment variables.
 
 2. Install required NuGet packages
 From the Package Manager Console in Visual Studio:
 
 powershell
+````
 Install-Package Pomelo.EntityFrameworkCore.MySql
 Install-Package Microsoft.EntityFrameworkCore.Tools
 Install-Package Microsoft.EntityFrameworkCore.Design
+````
 3. Scaffold the DbContext
 Run the following command in the Package Manager Console (replace placeholders with your own values):
-
 powershell
+````
 Scaffold-DbContext "Server=YOUR_SERVER;User=YOUR_USER;Password=YOUR_PASSWORD;Database=YOUR_DATABASE;Port=3306;CharSet=utf8;" Pomelo.EntityFrameworkCore.MySql -OutputDir Models -Context AppDbContext -Force
+````
 -OutputDir Models → generates all entity classes inside a Models folder
 
 -Context AppDbContext → creates the AppDbContext class
