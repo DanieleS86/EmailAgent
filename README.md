@@ -26,8 +26,7 @@ An intelligent email agent for businesses, built with Blazor Server, MudBlazor, 
 
 ## 🖥 Screenshots
 
-<img width="1722" height="939" alt="image" src="https://github.com/user-attachments/assets/837c1b48-de5f-45f1-a3e5-df778a86cd9d" />
-
+<img width="1713" height="948" alt="image" src="https://github.com/user-attachments/assets/4f4d955b-acd0-4343-995a-92049173fb1e" />
 
 ## 📦 Setup
 
