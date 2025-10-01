@@ -1,0 +1,98 @@
+﻿@page "/emailagent"
+
+@using EmailAgentSWB.Services
+@using EmailAgentSWB.Models
+@inject EmailService EmailService
+@inject OpenAiService OpenAi
+@inject ModelAIService ModelAIService
+
+<MudText Typo="Typo.h4">E-Mail-Verwaltung</MudText>
+<MudText Typo="Typo.subtitle1">Kundenanfragen analysieren und beantworten</MudText>
+<MudDivider />
+
+<MudTable Items="@EmailListe" Hover="true" Dense="true">
+    <HeaderContent>
+        <MudTh>Absender</MudTh>
+        <MudTh>Betreff</MudTh>
+        <MudTh>Empfangsdatum</MudTh>
+        <MudTh>Status</MudTh>
+        <MudTh>Aktionen</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>@context.From</MudTd>
+        <MudTd>@context.Subject</MudTd>
+        <MudTd>@context.DateReceived.ToShortDateString()</MudTd>
+        <MudTd>@context.Status</MudTd>
+        <MudTd>
+            <MudButton Color="Color.Primary" OnClick="@(() => EmailAuswählen(context))">Analysieren</MudButton>
+        </MudTd>
+    </RowTemplate>
+</MudTable>
+
+@if (AusgewählteEmail != null)
+{
+    <MudPaper Class="pa-4 mt-4" Elevation="2">
+        <MudText Typo="Typo.h6">Ausgewählte E-Mail</MudText>
+        <MudText><strong>Von:</strong> @AusgewählteEmail.From</MudText>
+        <MudText><strong>Betreff:</strong> @AusgewählteEmail.Subject</MudText>
+        <MudText><strong>Inhalt:</strong> @AusgewählteEmail.Body</MudText>
+
+        <MudDivider Class="my-2" />
+
+        <MudText Typo="Typo.h6">Generierte Antwort</MudText>
+        <MudTextField T="string"
+                      Label="Antwort bearbeiten"
+                      Lines="6"
+                      FullWidth="true"
+                      @bind-Value="GenerierteAntwort" />
+
+        <MudButton Color="Color.Success"
+                   Variant="Variant.Filled"
+                   Class="mt-2"
+                   OnClick="AntwortSenden">
+            Antwort senden
+        </MudButton>
+    </MudPaper>
+}
+
+@code {
+    List<EmailMessage> EmailListe = new(); // Da popolare con il tuo servizio
+    EmailMessage? AusgewählteEmail;
+    string GenerierteAntwort = string.Empty;
+
+    private string AntwortText = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        EmailListe = await EmailService.GetEmailsAsync();
+    }
+
+    private async Task EmailAuswählen(EmailMessage email)
+    {
+        AusgewählteEmail = email;
+        GenerierteAntwort = await ModelAIService.GeneriereAntwort(AusgewählteEmail.Body);
+    }
+
+    private async Task AntwortSenden()
+    {
+     
+        // Logica per inviare la risposta via SMTP o salvarla nel DB
+       // Snackbar.Add("Antwort erfolgreich gesendet!", Severity.Success);
+    }
+
+
+    private async Task GeneriereAntwort()
+    {
+        if (AusgewählteEmail != null)
+        {
+            AntwortText = await ModelAIService.GeneriereAntwort(AusgewählteEmail.Body);
+        }
+    }
+
+}
+
+
+@code {
+
+    
+}

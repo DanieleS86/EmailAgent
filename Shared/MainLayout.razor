@@ -1,0 +1,61 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="@_theme" IsDarkMode="_isDarkMode" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Elevation="1">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@DrawerToggle" />
+        <MudText Typo="Typo.h5" Class="ml-3">EmailAgentSWB</MudText>
+        <MudSpacer />
+        <MudIconButton Icon="@DarkLightModeButtonIcon" Color="Color.Inherit" OnClick="@DarkModeToggle" />
+    </MudAppBar>
+
+    <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
+        <NavMenu />
+    </MudDrawer>
+
+    <MudMainContent Class="pt-16 pa-4">
+        @Body
+    </MudMainContent>
+</MudLayout>
+@code {
+    private bool _drawerOpen = true;
+    private bool _isDarkMode = false;
+
+    private MudTheme _theme => _isDarkMode ? _darkTheme : _lightTheme;
+
+    private string DarkLightModeButtonIcon => _isDarkMode ? Icons.Material.Filled.LightMode : Icons.Material.Filled.DarkMode;
+
+    private void DrawerToggle() => _drawerOpen = !_drawerOpen;
+    private void DarkModeToggle() => _isDarkMode = !_isDarkMode;
+
+    private MudTheme _lightTheme = new MudTheme()
+    {
+        PaletteLight = new PaletteLight()
+        {
+            Primary = Colors.Blue.Default,
+            Secondary = Colors.Green.Accent4,
+            Background = "#F5F5F5",
+            AppbarBackground = Colors.Blue.Darken3,
+            DrawerBackground = "#FFFFFF",
+            DrawerText = "#333333"
+        }
+    };
+
+    private MudTheme _darkTheme = new MudTheme()
+    {
+        PaletteDark = new PaletteDark()
+        {
+            Primary = Colors.Blue.Lighten1,
+            Secondary = Colors.Green.Lighten1,
+            Background = "#121212",
+            Surface = "#1E1E1E",
+            AppbarBackground = "#1F1F1F",
+            DrawerBackground = "#1F1F1F",
+            DrawerText = "#E0E0E0"
+        }
+    };
+}
