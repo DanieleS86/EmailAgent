@@ -28,6 +28,23 @@ An intelligent email agent for businesses, built with Blazor Server, MudBlazor, 
 
 <img width="1713" height="948" alt="image" src="https://github.com/user-attachments/assets/4f4d955b-acd0-4343-995a-92049173fb1e" />
 
+🧠 AI Model Integration
+This project integrates a free summarization model (Hugging Face – facebook/bart-large-cnn) to demonstrate how the AI service works without requiring a paid subscription.
+
+By default, the system uses this summarization model so that anyone can test the API integration and see how the pipeline works.
+
+Since most models capable of generating full email replies (e.g., OpenAI GPT-4/5) are paid services, they are not enabled by default.
+
+If you want to experiment with automatic email reply generation, you can easily switch the configuration to use a paid model by providing your own API key.
+
+This approach allows developers to:
+
+✅ Test the project immediately with a free model.
+
+✅ Understand the integration with Hugging Face / OpenAI APIs.
+
+✅ Upgrade to a more powerful, paid model for real-world email automation.
+
 ## 📦 Setup
 
 ### Requirements
