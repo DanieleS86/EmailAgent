@@ -1,6 +1,5 @@
 # EmailAgent
 
-
 # 📬 EmailAgentSWB
 
 An intelligent email agent for businesses, built with Blazor Server, MudBlazor, Hugging Face, and MySQL ERP integration.
